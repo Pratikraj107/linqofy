@@ -4,8 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Search, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function HeroSection() {
+  const router = useRouter();
   return (
     <div className="relative pt-24 overflow-hidden" style={{ background: "linear-gradient(135deg, #000b76 0%, #3a4ad9 100%)" }}>
       {/* Content */}
@@ -29,20 +31,28 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button
-                className="bg-[#000b76] text-white font-semibold text-base px-8 py-6 border-none shadow-lg hover:bg-[#000b76]/90"
-                size="lg"
-              >
-                Post Your Project
-                <ArrowRight className="ml-2 h-5 w-5 text-white" />
-              </Button>
-              <Button
-                variant="outline"
-                className="bg-transparent text-white border-white text-base px-8 py-6 hover:bg-white/10"
-                size="lg"
-              >
-                Browse Projects
-              </Button>
+              <Link href="/auth/sign-up" passHref legacyBehavior>
+                <Button
+                  className="bg-[#000b76] text-white font-semibold text-base px-8 py-6 border-none shadow-lg hover:bg-[#000b76]/90"
+                  size="lg"
+                  asChild
+                >
+                  <span>
+                    Post Your Project
+                    <ArrowRight className="ml-2 h-5 w-5 text-white" />
+                  </span>
+                </Button>
+              </Link>
+              <Link href="/auth/sign-up" passHref legacyBehavior>
+                <Button
+                  variant="outline"
+                  className="bg-transparent text-white border-white text-base px-8 py-6 hover:bg-white/10"
+                  size="lg"
+                  asChild
+                >
+                  <span>Browse Projects</span>
+                </Button>
+              </Link>
             </div>
 
             <div className="mt-12 hidden md:block">
@@ -103,6 +113,7 @@ export function HeroSection() {
                 </div>
                 <Button
                   className="w-full bg-[#000b76] text-white font-semibold py-6 border-none shadow-lg hover:bg-[#000b76]/90"
+                  onClick={() => router.push("/auth/sign-up")}
                 >
                   Search Projects
                 </Button>
