@@ -50,11 +50,8 @@ export function SideNav({ activeTab, onLogout, open, setOpen }: SideNavProps) {
       </button>
       {/* Logo section */}
       <div className="flex items-center gap-3 mb-8 px-2 mt-0">
-        <div className="h-10 w-10 rounded-lg gradient-bg flex items-center justify-center">
-          {/* You can use your logo SVG or icon here */}
-          <span role="img" aria-label="logo" className="text-2xl">🧑‍🤝‍🧑</span>
-        </div>
-        <span className="font-playfair text-2xl font-bold gradient-text">Linqofy</span>
+      
+        <span className="font-playfair text-2xl font-bold " >Linqofy</span>
       </div>
       <div className="flex flex-col gap-1 flex-1">
         {navItems.map((item) => (

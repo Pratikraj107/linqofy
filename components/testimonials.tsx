@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const testimonials = [
   {
     id: 1,
-    content: "TeamForge helped me find the perfect developers and designers for my startup. We've successfully launched our MVP and secured our first round of funding!",
+    content: "Linqofy helped me find the perfect developers and designers for my startup. We've successfully launched our MVP and secured our first round of funding!",
     author: {
       name: "Sarah Johnson",
       role: "Founder, EcoTrack",
@@ -17,7 +17,7 @@ const testimonials = [
   },
   {
     id: 2,
-    content: "As a freelance developer, I've found amazing projects and collaborators through TeamForge. The platform made it easy to showcase my skills and connect with innovative teams.",
+    content: "As a freelance developer, I've found amazing projects and collaborators through Linqofy. The platform made it easy to showcase my skills and connect with innovative teams.",
     author: {
       name: "Michael Chen",
       role: "Full-Stack Developer",
@@ -26,7 +26,7 @@ const testimonials = [
   },
   {
     id: 3,
-    content: "I had a game idea but needed help bringing it to life. Through TeamForge, I connected with talented developers and artists who shared my vision. Our game just hit 100K downloads!",
+    content: "I had a game idea but needed help bringing it to life. Through Linqofy, I connected with talented developers and artists who shared my vision. Our game just hit 100K downloads!",
     author: {
       name: "Emma Rodriguez",
       role: "Game Designer",
