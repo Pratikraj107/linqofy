@@ -280,7 +280,15 @@ export default function ProfilePage() {
               ) : myProjects.map(project => (
                 <div key={project.id} className="bg-white rounded-xl shadow-md overflow-hidden">
                   <div className="relative">
-                    <img src={project.image || "/placeholder.png"} alt={project.title} className="w-full h-40 object-cover" />
+                    <img
+                      src={
+                        Array.isArray(project.image_url) && project.image_url.length > 0
+                          ? project.image_url[0]
+                          : "/placeholder.png"
+                      }
+                      alt={project.title}
+                      className="w-full h-40 object-cover"
+                    />
                     {project.status && (
                       <span className="absolute top-3 right-3 bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">{project.status}</span>
                     )}
@@ -312,7 +320,15 @@ export default function ProfilePage() {
               ) : collabProjects.map(project => (
                 <div key={project.id} className="bg-white rounded-xl shadow-md overflow-hidden">
                   <div className="relative">
-                    <img src={project.image || "/placeholder.png"} alt={project.title} className="w-full h-40 object-cover" />
+                    <img
+                      src={
+                        Array.isArray(project.image_url) && project.image_url.length > 0
+                          ? project.image_url[0]
+                          : "/placeholder.png"
+                      }
+                      alt={project.title}
+                      className="w-full h-40 object-cover"
+                    />
                     {project.status && (
                       <span className="absolute top-3 right-3 bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">{project.status}</span>
                     )}

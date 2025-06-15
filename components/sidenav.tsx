@@ -14,6 +14,7 @@ const navItems = [
   { label: "Discover Projects", href: "/discover", icon: <Home className="h-5 w-5" /> },
   { label: "Profile", href: "/profile", icon: <User className="h-5 w-5" /> },
   { label: "Proposals", href: "/proposals", icon: <Mail className="h-5 w-5" /> },
+  { label: "Messages", href: "/messages", icon: <Mail className="h-5 w-5" /> },
   { label: "Create Project", href: "/projects/create", icon: <Layers className="h-5 w-5" /> },
 ];
 

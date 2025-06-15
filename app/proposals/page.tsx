@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Mail, User } from "lucide-react";
 import { supabase } from '@/lib/supabase';
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function ProposalsPage() {
   const [proposals, setProposals] = useState<any[]>([]);
@@ -86,19 +87,23 @@ export default function ProposalsPage() {
               <Card key={proposal.id} className="px-8 py-4 flex flex-col gap-2 rounded-2xl shadow-md">
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-1">
-                  <Avatar className="h-14 w-14">
-                    <AvatarImage src={proposal.profiles?.avatar_url || "https://i.pravatar.cc/150"} />
-                    <AvatarFallback>{(proposal.profiles?.full_name || "A")[0]}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 min-w-0">
-                    <div className="font-bold text-lg text-gray-900 flex items-center gap-2">{proposal.profiles?.full_name || "Anonymous"}</div>
-                    <div className="text-blue-700 text-sm font-medium">@{proposal.profiles?.username || proposal.profiles?.full_name?.toLowerCase().replace(/\s/g,"") || "user"}</div>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm mt-1">
-                      <span className="flex items-center gap-1"><svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg> New York, NY</span>
-                      <span className="flex items-center gap-1 text-yellow-600"><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z"/></svg> 4.8</span>
-                      <span className="flex items-center gap-1"><svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M3 17v-2a4 4 0 014-4h10a4 4 0 014 4v2"/><circle cx="12" cy="7" r="4"/></svg> 23 projects</span>
+                  <Link href={`/profile/${proposal.sender_id}`} className="flex items-center gap-4 group" style={{ textDecoration: "none" }}>
+                    <Avatar className="h-14 w-14 group-hover:ring-2 group-hover:ring-blue-500 transition cursor-pointer">
+                      <AvatarImage src={proposal.profiles?.avatar_url || "https://i.pravatar.cc/150"} />
+                      <AvatarFallback>{(proposal.profiles?.full_name || "A")[0]}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-bold text-lg text-gray-900 flex items-center gap-2 group-hover:text-blue-700 transition cursor-pointer">
+                        {proposal.profiles?.full_name || "Anonymous"}
+                      </div>
+                      <div className="text-blue-700 text-sm font-medium">@{proposal.profiles?.username || proposal.profiles?.full_name?.toLowerCase().replace(/\s/g,"") || "user"}</div>
+                      <div className="flex items-center gap-2 text-gray-500 text-sm mt-1">
+                        <span className="flex items-center gap-1"><svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg> New York, NY</span>
+                        <span className="flex items-center gap-1 text-yellow-600"><svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z"/></svg> 4.8</span>
+                        <span className="flex items-center gap-1"><svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M3 17v-2a4 4 0 014-4h10a4 4 0 014 4v2"/><circle cx="12" cy="7" r="4"/></svg> 23 projects</span>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                   {/* Status badge */}
                   <div className="ml-auto">
                     {proposal.status === 'pending' && (

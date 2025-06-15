@@ -285,6 +285,20 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                 {project.title}
               </h1>
 
+              {Array.isArray(project.image_url) && project.image_url.length > 0 && (
+                <div className="flex gap-4 mb-6 flex-wrap">
+                  {project.image_url.map((url: string, idx: number) => (
+                    <img
+                      key={idx}
+                      src={url}
+                      alt={`Project image ${idx + 1}`}
+                      className="h-48 rounded shadow border object-cover"
+                      style={{ maxWidth: "300px" }}
+                    />
+                  ))}
+                </div>
+              )}
+
               <div className="flex items-center mb-6">
                 <Avatar className="h-12 w-12 border-2 border-white shadow-sm">
                   <AvatarImage src={project.profiles?.avatar_url || 'https://i.pravatar.cc/150'} />
@@ -374,7 +388,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
 
               {/* Comments Section */}
               <div className="mt-12">
-                <h3 className="text-xl font-semibold mb-6">Comments</h3>
+                <h3 className="text-xl font-semibold mb-6">Feedbacks</h3>
                 
                 {/* Comment Form */}
                 <form onSubmit={handleSubmitComment} className="mb-8">
@@ -397,7 +411,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                         className="flex items-center bg-[#000b76] text-white font-semibold hover:bg-[#000b76]/90"
                       >
                         <Send className="h-4 w-4 mr-2 text-white" />
-                        {isLoading ? "Posting..." : "Post Comment"}
+                        {isLoading ? "Posting..." : "Post Feedback"}
                       </Button>
                     </div>
                   </div>
@@ -434,7 +448,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   ))}
 
                   {comments.length === 0 && (
-                    <p className="text-center text-gray-500">No comments yet. Be the first to comment!</p>
+                    <p className="text-center text-gray-500">No feedbacks yet. Be the first to give feedback!</p>
                   )}
                 </div>
               </div>

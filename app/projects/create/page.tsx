@@ -33,15 +33,32 @@ export default function CreateProjectPage() {
   const [teamSize, setTeamSize] = useState("");
   const [compensation, setCompensation] = useState("");
   const [compensationDetails, setCompensationDetails] = useState("");
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      // Get current user
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       if (userError || !user) throw new Error("You must be signed in to create a project.");
+
+      let imageUrls: string[] = [];
+      for (const imageFile of imageFiles) {
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${user.id}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+        const { error: uploadError } = await supabase
+          .storage
+          .from('linqofyprojects')
+          .upload(fileName, imageFile);
+        if (uploadError) throw uploadError;
+        const { data: publicUrlData } = supabase
+          .storage
+          .from('linqofyprojects')
+          .getPublicUrl(fileName);
+        imageUrls.push(publicUrlData.publicUrl);
+      }
 
       const project = {
         title,
@@ -53,6 +70,7 @@ export default function CreateProjectPage() {
         compensation,
         compensation_details: compensationDetails,
         created_by: user.id,
+        image_url: imageUrls,
       };
       const result = await createProject(project);
       toast({
@@ -69,6 +87,8 @@ export default function CreateProjectPage() {
       setTeamSize("");
       setCompensation("");
       setCompensationDetails("");
+      setImageFiles([]);
+      setImagePreviews([]);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -95,6 +115,12 @@ export default function CreateProjectPage() {
 
   const removeSkill = (skillToRemove: string) => {
     setSelectedSkills(selectedSkills.filter(skill => skill !== skillToRemove));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setImageFiles(files);
+    setImagePreviews(files.map(file => URL.createObjectURL(file)));
   };
 
   return (
@@ -256,6 +282,25 @@ export default function CreateProjectPage() {
                     value={compensationDetails}
                     onChange={e => setCompensationDetails(e.target.value)}
                   />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="projectImage">Project Images</Label>
+                  <Input
+                    id="projectImage"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageChange}
+                    required
+                  />
+                  {imagePreviews.length > 0 && (
+                    <div className="flex gap-2 mt-2">
+                      {imagePreviews.map((src, idx) => (
+                        <img key={idx} src={src} alt={`Preview ${idx + 1}`} className="h-32 rounded" />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <Button
