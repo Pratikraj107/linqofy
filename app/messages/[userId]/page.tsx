@@ -20,7 +20,11 @@ export default function ChatPage() {
     const fetchData = async () => {
       setLoading(true);
       const { data: { user } } = await supabase.auth.getUser();
-      setUserId(user?.id || null);
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+      setUserId(user.id);
       // Fetch other user's profile
       const { data: otherProfile } = await supabase
         .from("profiles")
